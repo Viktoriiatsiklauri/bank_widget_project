@@ -1,16 +1,19 @@
-def get_mask_card_number(card_number: int) -> str:
+def get_mask_card_number(card_number: str) -> str:
     """
-    Маскирует номер карты в формате: XXXX XX** **** XXXX.
-    Показываются первые 6 и последние 4 цифры.
+    Маскирует номер карты: оставляет первые 4 и последние 4 цифры,
+    остальные заменяет на '**', с разделением пробелами.
+    :param card_number: номер карты строкой
+    :return: замаскированный номер карты
     """
-    card_str = str(card_number)
-    return f"{card_str[:4]} {card_str[4:6]}** **** {card_str[-4:]}"
+    # оставляем первые 4 и последние 4, средние заменяем на '**'
+    return f"{card_number[:4]} ** ** {card_number[-4:]}"
 
 
-def get_mask_account(account_number: int) -> str:
+def get_mask_account(account_number: str) -> str:
     """
-    Маскирует номер счёта в формате: **XXXX.
-    Показываются только последние 4 цифры.
+    Маскирует номер счета: оставляет только последние 4 цифры,
+    остальные заменяет на '**'.
+    :param account_number: номер счета строкой
+    :return: замаскированный номер счета
     """
-    account_str = str(account_number)
-    return f"**{account_str[-4:]}"
+    return f"**{account_number[-4:]}"

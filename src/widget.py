@@ -3,32 +3,20 @@ from datetime import datetime
 from src.masks import get_mask_card_number, get_mask_account
 
 
-def mask_account_card(info: str) -> str:
+def mask_account_card(data: str) -> str:
     """
-    Маскирует номер банковской карты или счета, используя функции из модуля masks.
+    Определяет, что за данные пришли — карта или счет,
+    и применяет соответствующую маску.
 
-    Аргументы:
-        info (str): Строка с типом карты/счета и номером, например,
-                    "Visa Platinum 7000792289606361" или "Счет 73654108430135874305".
-
-    Возвращает:
-        str: Строку с типом и замаскированным номером.
+    - Карта: 16+ символов, оставляем первые 4 и последние 4
+    - Счет: меньше 16 символов, оставляем только последние 4
     """
-    # Разделяем строку на слова
-    parts = info.split()
-
-    # Последний элемент — номер карты/счета
-    number = parts[-1]
-
-    # Всё, что до номера — тип
-    card_type = " ".join(parts[:-1])
-
-    if card_type.lower() == "счет":
-        masked = get_mask_account(number)
+    if len(data) >= 16:
+        # карта
+        return get_mask_card_number(data)
     else:
-        masked = get_mask_card_number(number)
-
-    return f"{card_type} {masked}"
+        # счет
+        return get_mask_account(data)
 
 
 def get_date(date_str: str) -> str:
