@@ -66,3 +66,50 @@ MIT License
  • Применяется параметризация, чтобы проверять различные входные данные без дублирования кода.
  • При запуске pytest все тесты проходят успешно.
 
+ ## Модуль generators
+
+Модуль `generators` содержит функции для работы с большими массивами транзакций и генерации номеров карт:
+
+### Функции
+
+1.filter_by_currency(transactions: list[dict], currency: str).
+   - Принимает список словарей с транзакциями.
+   - Возвращает итератор, который выдаёт только транзакции с указанной валютой.
+   - Пример использования:
+   ```python
+   usd_transactions = filter_by_currency(transactions, "USD")
+   for tx in usd_transactions:
+       print(tx)
+
+ 2. transaction_descriptions(transactions)
+ - Принимает список словарей с транзакциями.
+ - Возвращает генератор, выдающий описание каждой операции по очереди.
+ - Пример использования:
+
+descriptions = transaction_descriptions(transactions)
+for desc in descriptions:
+    print(desc)
+
+
+ 3. card_number_generator(start, stop)
+ • Генератор номеров банковских карт в формате XXXX XXXX XXXX XXXX.
+ • Аргументы start и stop задают диапазон номеров карт.
+ • Пример использования:
+
+for card_number in card_number_generator(1, 5):
+    print(card_number)
+
+
+Тестирование
+ • Для всех функций написаны тесты с использованием pytest.
+ • Проверяется корректность работы функций и генераторов.
+ • Используются фикстуры и параметризация для проверки разных кейсов.
+ • Покрытие тестами функционального кода — более 80%.
+ • HTML-отчет с покрытием создаётся командой:
+
+pytest --cov=src --cov-report=html
+
+ • Результат отчета сохраняется в папке htmlcov.
+
+
+
