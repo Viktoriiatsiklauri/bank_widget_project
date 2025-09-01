@@ -1,8 +1,7 @@
 # bank_widget_project/src/processing/__init__.py
 
 from datetime import datetime
-from typing import Dict
-from typing import List
+from typing import Dict, List
 
 
 def filter_by_state(data: List[Dict], state: str = "EXECUTED") -> List[Dict]:
